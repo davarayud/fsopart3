@@ -1,0 +1,16 @@
+GET https://lit-crag-01168-113c56f8d05a.herokuapp.com/info
+
+###
+GET https://lit-crag-01168-113c56f8d05a.herokuapp.com/api/persons
+
+###
+DELETE https://lit-crag-01168-113c56f8d05a.herokuapp.com/api/persons/2
+
+###
+POST https://lit-crag-01168-113c56f8d05a.herokuapp.com/api/persons
+Content-Type: application/json
+
+{
+    "name": "damian",
+    "number": "53342655"
+}

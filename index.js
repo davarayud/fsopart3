@@ -10,10 +10,10 @@ app.use(express.static('build'))
 app.use(express.json())
 
 morgan.token('bodypost', (request) => {
-  if(request.method === "POST") {
+  if(request.method === 'POST') {
     return JSON.stringify(request.body)
   }
-  return " "
+  return ' '
 })
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :bodypost'))
 
@@ -36,7 +36,7 @@ app.get('/api/persons', (request, response) => {
 
 app.get('/api/persons/:id', (request, response, next) => {
   Person.findById(request.params.id)
-    .then(person =>{
+    .then(person => {
       if (person) {
         response.json(person)
       } else {
@@ -48,7 +48,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndDelete(request.params.id)
-    .then(result =>
+    .then(() =>
       response.status(204).end()
     )
     .catch(error => next(error))
@@ -61,7 +61,7 @@ app.post('/api/persons', (request, response, next) => {
     name: body.name,
     number: body.number
   })
-  person.save().then(savedPerson =>{
+  person.save().then(savedPerson => {
     response.json(savedPerson)
   }).catch(error => next(error))
 })
@@ -73,7 +73,7 @@ app.put('/api/persons/:id', (request, response, next) => {
     name: body.name,
     number: body.number
   }
-  Person.findByIdAndUpdate(request.params.id, person, {new: true, runValidators: true})
+  Person.findByIdAndUpdate(request.params.id, person, { new: true, runValidators: true })
     .then(result => {
       if (result) {
         response.json(result)
@@ -96,13 +96,14 @@ const errorHandler = (error, request, response, next) => {
   } else if (error.name === 'ValidationError') {
     return response.status(400).json({ error: error.message })
   } else if (error.name === 'MongoServerError') {
-    return response.status(400).json({ error: error.message})
+    return response.status(400).json({ error: error.message })
   }
 
   next(error)
 }
 app.use(errorHandler)
 
+// eslint-disable-next-line no-undef
 const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)

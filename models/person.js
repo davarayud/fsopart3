@@ -1,9 +1,10 @@
 const mongoose = require('mongoose')
 
+// eslint-disable-next-line no-undef
 const url = process.env.MONGODB_URI
 
 mongoose.connect(url)
-  .then(result => {
+  .then(() => {
     console.log('connected to MongoDB')
   })
   .catch((error) => {
@@ -23,8 +24,6 @@ const personSchema = new mongoose.Schema({
     required: true
   }
 })
-
-const Person = mongoose.model('Person', personSchema)
 
 personSchema.set('toJSON', {
   transform: (document, returnedObjet) => {
